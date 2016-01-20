@@ -103,17 +103,64 @@ namespace HelloService
 
         public bool UrlIsValid(string url)
         {
+          //  bool pageExists = false;
+            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
+            req.AllowAutoRedirect = false;
+            HttpWebResponse res = (HttpWebResponse)req.GetResponse();
 
-            Uri uri = null;
-            if (!Uri.TryCreate(url, UriKind.Absolute, out uri) || null == uri)
-            {
-                //Invalid URL
-                return false;
-            }
-            else
-            {
+            if (res.StatusCode == HttpStatusCode.OK)
                 return true;
-            }
+            else
+                return false;
+            
+        }
+
+
+
+        //    try
+        //    {
+        //        //Creating the HttpWebRequest
+        //        HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
+        //        //Setting the Request method HEAD, you can also use GET too.
+        //        request.Method = "HEAD";
+        //        //Getting the Web Response.
+        //        HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+        //        //Returns TRUE if the Status code == 200
+        //        response.Close();
+        //        return (response.StatusCode == HttpStatusCode.OK);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string message = "Error";
+        //        //Any exception will returns false.
+        //        throw new Exception(message, ex);
+        //        //return false;
+               
+        //    }
+        //}
+
+            //try
+            //{
+            //    //logic here
+            //    return
+            //}
+            //catch (Exception e)
+            //{
+            //    ErrorString = e.Message;
+            //}
+
+
+
+            //Uri uri = null;
+            //if (!Uri.TryCreate(url, UriKind.Absolute, out uri) || null == uri)
+            //{
+            //    //Invalid URL
+            //    return false;
+            //}
+            //else
+            //{
+            //    return true;
+            //}
             //string error;
             //try
             //{
@@ -157,7 +204,7 @@ namespace HelloService
             //    error = "Could not test url {0}." + url + ex;
             //}
             //return false;
-        }
+        
 
         public string ProcessDataAdd(string firstname, string lastname, string email, string Mobile, string debtlevel, string monthlypayment, string website)
         {
